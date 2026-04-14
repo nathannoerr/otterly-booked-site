@@ -79,13 +79,9 @@ It's one file. Open `index.html` in any editor.
 
 ## Initial GitHub setup
 
-Run these once, from this directory, after creating an empty repo at `github.com/<your-username>/otterly-booked-site`:
+The local repo is already initialised and has its initial commit. After creating an empty repo at [github.com/nathannoerr/otterly-booked-site](https://github.com/new) (don't tick "Initialize with README"), wire up the remote and push:
 
 ```bash
-git init
-git add .
-git commit -m "Initial commit: homepage v1"
-git branch -M main
-git remote add origin https://github.com/<your-username>/otterly-booked-site.git
+git remote add origin https://github.com/nathannoerr/otterly-booked-site.git
 git push -u origin main
 ```
