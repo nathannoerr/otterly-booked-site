@@ -1,0 +1,1406 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Otterly Booked — Pricing intelligence for independent UK hotels</title>
+<meta name="description" content="The same dynamic pricing methodology used by Premier Inn and the UK's biggest brands — built for independent hotels with 20–150 rooms. Free dashboard, no integration required." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&display=swap" rel="stylesheet">
+<style>
+  /* ---------- design tokens ---------- */
+  :root {
+    --navy:      #1a2332;
+    --navy-soft: #2b384a;
+    --ink:       #0f1822;
+    --teal:      #2a9d8f;
+    --teal-deep: #218377;
+    --teal-tint: #e7f4f1;
+    --cream:     #f8f5f0;
+    --cream-2:   #efeae0;
+    --white:     #ffffff;
+    --line:      #e5dfd2;
+    --line-2:    #d8d2c4;
+    --muted:     #6b6f78;
+    --muted-2:   #8b8f99;
+    --warn:      #c9543a;
+    --warn-soft: #f4d7cf;
+    --good:      #2a9d8f;
+    --good-soft: #d6ece8;
+    --amber:     #d4a853;
+    --amber-soft:#f3e5c1;
+    --shadow-sm: 0 1px 2px rgba(15,24,34,.04), 0 2px 6px rgba(15,24,34,.04);
+    --shadow:    0 6px 20px rgba(15,24,34,.06), 0 1px 2px rgba(15,24,34,.04);
+    --shadow-lg: 0 30px 60px -20px rgba(15,24,34,.18), 0 12px 24px -8px rgba(15,24,34,.08);
+    --radius:    14px;
+    --radius-lg: 22px;
+    --serif:     "DM Serif Display", "Iowan Old Style", Georgia, serif;
+    --sans:      "DM Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --max:       1180px;
+  }
+
+  /* ---------- reset + base ---------- */
+  *,*::before,*::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--ink);
+    background: var(--white);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  img, svg { max-width: 100%; display: block; }
+  a { color: var(--teal-deep); text-decoration: none; }
+  a:hover { color: var(--navy); }
+  button { font-family: inherit; cursor: pointer; }
+
+  h1, h2, h3, h4 {
+    font-family: var(--serif);
+    font-weight: 400;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+    margin: 0 0 .4em;
+    line-height: 1.1;
+  }
+  h1 { font-size: clamp(2.4rem, 4.4vw + 1rem, 4.2rem); line-height: 1.05; }
+  h2 { font-size: clamp(1.9rem, 2.4vw + 1rem, 2.9rem); line-height: 1.1; }
+  h3 { font-size: clamp(1.25rem, .6vw + 1rem, 1.5rem); }
+  h4 { font-size: 1.1rem; }
+
+  p { margin: 0 0 1em; color: #2a3340; }
+  .lead { font-size: 1.18rem; line-height: 1.55; color: #3a424f; }
+
+  .container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 28px; }
+  section { padding: clamp(64px, 8vw, 112px) 0; position: relative; }
+  .bg-cream { background: var(--cream); }
+  .bg-white { background: var(--white); }
+  .bg-ink { background: var(--navy); color: #e7eaf0; }
+  .bg-ink h1, .bg-ink h2, .bg-ink h3 { color: #fdfdfb; }
+  .bg-ink p { color: #c0c7d2; }
+
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: .78rem;
+    font-weight: 500;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    margin: 0 0 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 22px; height: 1px;
+    background: var(--teal);
+    display: inline-block;
+  }
+  .bg-ink .eyebrow { color: #6dd0c2; }
+  .bg-ink .eyebrow::before { background: #6dd0c2; }
+
+  /* ---------- buttons ---------- */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 22px;
+    border-radius: 10px;
+    border: 1px solid transparent;
+    font-weight: 500;
+    font-size: .98rem;
+    letter-spacing: .005em;
+    line-height: 1;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease, color .18s ease, border-color .18s ease;
+    white-space: nowrap;
+    text-decoration: none;
+  }
+  .btn-primary {
+    background: var(--teal);
+    color: #fff;
+    box-shadow: 0 6px 16px -4px rgba(42,157,143,.45);
+  }
+  .btn-primary:hover {
+    background: var(--teal-deep);
+    color: #fff;
+    transform: translateY(-1px);
+    box-shadow: 0 10px 22px -6px rgba(42,157,143,.55);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: var(--navy);
+    border-color: var(--line-2);
+  }
+  .btn-secondary:hover {
+    border-color: var(--navy);
+    color: var(--navy);
+    transform: translateY(-1px);
+  }
+  .bg-ink .btn-secondary { color: #fdfdfb; border-color: rgba(255,255,255,.25); }
+  .bg-ink .btn-secondary:hover { border-color: rgba(255,255,255,.65); }
+  .btn-arrow {
+    display: inline-block;
+    transition: transform .18s ease;
+  }
+  .btn:hover .btn-arrow { transform: translateX(3px); }
+
+  /* ---------- nav ---------- */
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255,255,255,.85);
+    backdrop-filter: saturate(160%) blur(14px);
+    -webkit-backdrop-filter: saturate(160%) blur(14px);
+    border-bottom: 1px solid transparent;
+    transition: border-color .25s ease, background .25s ease;
+  }
+  .nav.scrolled { border-bottom-color: var(--line); }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 18px 28px;
+    max-width: var(--max);
+    margin: 0 auto;
+    gap: 24px;
+  }
+  .brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    color: var(--navy);
+    letter-spacing: -0.01em;
+  }
+  .brand-mark {
+    width: 30px; height: 30px;
+    flex-shrink: 0;
+  }
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    list-style: none;
+    padding: 0; margin: 0;
+  }
+  .nav-links a {
+    color: var(--navy);
+    font-size: .94rem;
+    font-weight: 400;
+    transition: color .15s ease;
+  }
+  .nav-links a:hover { color: var(--teal-deep); }
+  .nav-cta { padding: 11px 18px; font-size: .92rem; }
+  .nav-toggle {
+    display: none;
+    background: none;
+    border: 0;
+    width: 40px; height: 40px;
+    color: var(--navy);
+  }
+
+  /* ---------- hero ---------- */
+  .hero {
+    padding-top: clamp(56px, 6vw, 88px);
+    padding-bottom: clamp(64px, 8vw, 120px);
+    background: linear-gradient(180deg, var(--cream) 0%, var(--white) 100%);
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+    gap: clamp(40px, 5vw, 80px);
+    align-items: center;
+  }
+  .hero h1 .accent {
+    font-style: italic;
+    color: var(--teal-deep);
+  }
+  .hero-sub {
+    font-size: 1.18rem;
+    color: #3a424f;
+    max-width: 32em;
+    margin: 22px 0 32px;
+    line-height: 1.55;
+  }
+  .hero-cta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-bottom: 38px;
+  }
+  .credentials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 22px;
+    font-size: .88rem;
+    color: var(--muted);
+    align-items: center;
+  }
+  .credentials .dot {
+    width: 4px; height: 4px;
+    background: var(--line-2);
+    border-radius: 50%;
+  }
+
+  /* ---------- dashboard mockup (hero + section 6) ---------- */
+  .mockup {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--line);
+    overflow: hidden;
+    position: relative;
+  }
+  .mockup-chrome {
+    background: #f4f1ea;
+    padding: 12px 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--line);
+  }
+  .mockup-chrome .dots { display: flex; gap: 6px; }
+  .mockup-chrome .dot {
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    background: #e0d9c8;
+  }
+  .mockup-chrome .url {
+    flex: 1;
+    margin: 0 12px;
+    background: #fdfbf6;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 5px 12px;
+    font-size: .78rem;
+    color: var(--muted);
+    font-family: var(--sans);
+    text-align: center;
+  }
+  .mockup-body { padding: 24px 22px; }
+  .mockup-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 22px;
+    gap: 16px;
+  }
+  .mockup-hotel {
+    font-family: var(--serif);
+    font-size: 1.15rem;
+    color: var(--navy);
+    line-height: 1.2;
+  }
+  .mockup-hotel small {
+    display: block;
+    font-family: var(--sans);
+    font-size: .75rem;
+    color: var(--muted);
+    margin-top: 2px;
+    letter-spacing: .04em;
+  }
+  .mockup-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--good-soft);
+    color: var(--teal-deep);
+    font-size: .72rem;
+    font-weight: 500;
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+  .mockup-pill::before {
+    content: "";
+    width: 6px; height: 6px;
+    background: var(--teal);
+    border-radius: 50%;
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: .5; transform: scale(1); }
+    50%      { opacity: 1;  transform: scale(1.25); }
+  }
+  .mockup-bigcard {
+    background: var(--navy);
+    color: #fff;
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 18px;
+  }
+  .mockup-bigcard .label {
+    font-size: .72rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #8db8b1;
+    margin-bottom: 6px;
+  }
+  .mockup-bigcard .figure {
+    font-family: var(--serif);
+    font-size: 2.2rem;
+    line-height: 1;
+    color: #fff;
+  }
+  .mockup-bigcard .figure .currency { font-size: 1.4rem; vertical-align: top; margin-right: 2px; opacity: .8; }
+  .mockup-bigcard .sub {
+    font-size: .8rem;
+    color: #9bb1ad;
+    margin-top: 6px;
+  }
+  .mockup-section-label {
+    font-size: .72rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 14px 0 10px;
+  }
+  .calendar {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-bottom: 18px;
+  }
+  .cal-cell {
+    aspect-ratio: 1;
+    border-radius: 6px;
+    background: var(--cream-2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: .68rem;
+    color: var(--muted);
+    position: relative;
+  }
+  .cal-cell .day { font-weight: 500; color: var(--ink); font-size: .75rem; line-height: 1; }
+  .cal-cell .price { font-size: .6rem; color: var(--muted); margin-top: 2px; }
+  .cal-cell.under { background: var(--warn-soft); }
+  .cal-cell.under .day, .cal-cell.under .price { color: #8e2f1c; }
+  .cal-cell.over { background: var(--amber-soft); }
+  .cal-cell.over .day, .cal-cell.over .price { color: #7a5a16; }
+  .cal-cell.good { background: var(--good-soft); }
+  .cal-cell.good .day, .cal-cell.good .price { color: var(--teal-deep); }
+  .competitors { display: flex; flex-direction: column; gap: 9px; }
+  .comp-row { display: grid; grid-template-columns: 90px 1fr 50px; gap: 10px; align-items: center; font-size: .78rem; }
+  .comp-row .name { color: var(--navy); font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .comp-row .bar { height: 8px; background: var(--cream-2); border-radius: 999px; overflow: hidden; position: relative; }
+  .comp-row .fill { position: absolute; inset: 0; background: var(--teal); border-radius: 999px; }
+  .comp-row .you .fill { background: var(--navy); }
+  .comp-row .price { font-variant-numeric: tabular-nums; color: var(--ink); font-weight: 500; text-align: right; }
+
+  /* ---------- problem ---------- */
+  .problem-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    margin-top: 60px;
+  }
+  .problem-card {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 32px 28px 28px;
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .problem-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+  }
+  .quote-mark {
+    font-family: var(--serif);
+    font-size: 3.2rem;
+    line-height: .8;
+    color: var(--teal);
+    margin-bottom: 12px;
+    display: block;
+  }
+  .problem-card h3 {
+    font-size: 1.18rem;
+    line-height: 1.3;
+    margin-bottom: 14px;
+  }
+  .problem-card p {
+    color: #4a525e;
+    font-size: .96rem;
+    margin: 0;
+  }
+
+  /* ---------- what we do ---------- */
+  .section-head { max-width: 760px; margin-bottom: 60px; }
+  .section-head .lead { color: #4a525e; }
+
+  .services {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  .service {
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 36px 32px;
+    display: flex;
+    flex-direction: column;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .service:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow);
+    border-color: var(--line-2);
+  }
+  .service.featured {
+    background: var(--navy);
+    color: #e9edf3;
+    border-color: var(--navy);
+  }
+  .service.featured h3 { color: #fff; }
+  .service.featured p { color: #b8c1cd; }
+  .service.featured .service-meta { color: #8db8b1; }
+  .service.featured .service-meta .sep { background: #4a5666; }
+  .service-meta {
+    font-size: .72rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .service-meta .sep {
+    width: 4px; height: 4px;
+    background: var(--line-2);
+    border-radius: 50%;
+  }
+  .service h3 {
+    font-size: 1.45rem;
+    margin-bottom: 14px;
+  }
+  .service p {
+    font-size: .96rem;
+    color: #4a525e;
+    margin: 0 0 24px;
+    flex: 1;
+  }
+  .service .btn { align-self: flex-start; }
+  .service.featured .btn-secondary {
+    color: #fff;
+    border-color: rgba(255,255,255,.25);
+  }
+  .service.featured .btn-secondary:hover {
+    border-color: rgba(255,255,255,.65);
+  }
+
+  /* ---------- ROI calculator ---------- */
+  .calc-wrap {
+    background: var(--cream);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    margin-top: 56px;
+  }
+  .calc-inputs { padding: 44px 44px 40px; }
+  .calc-output {
+    background: var(--navy);
+    color: #fff;
+    padding: 44px 44px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .calc-field { margin-bottom: 26px; }
+  .calc-field:last-child { margin-bottom: 0; }
+  .calc-field label {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    font-size: .92rem;
+    color: var(--navy);
+    font-weight: 500;
+    margin-bottom: 10px;
+  }
+  .calc-field .value {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    color: var(--teal-deep);
+    font-weight: 400;
+  }
+  .calc-field input[type=range] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    background: var(--line);
+    border-radius: 999px;
+    outline: none;
+    margin: 8px 0 4px;
+  }
+  .calc-field input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 22px; height: 22px;
+    background: var(--teal);
+    border: 3px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(42,157,143,.4);
+    cursor: pointer;
+    transition: transform .15s ease;
+  }
+  .calc-field input[type=range]::-webkit-slider-thumb:hover { transform: scale(1.1); }
+  .calc-field input[type=range]::-moz-range-thumb {
+    width: 22px; height: 22px;
+    background: var(--teal);
+    border: 3px solid #fff;
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(42,157,143,.4);
+    cursor: pointer;
+  }
+  .calc-field select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid var(--line-2);
+    border-radius: 8px;
+    background: #fff;
+    font-family: inherit;
+    font-size: .96rem;
+    color: var(--navy);
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%231a2332' stroke-width='1.5' fill='none' stroke-linecap='round'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    cursor: pointer;
+  }
+  .calc-output .out-label {
+    font-size: .8rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #8db8b1;
+    margin-bottom: 14px;
+  }
+  .calc-output .out-figure {
+    font-family: var(--serif);
+    font-size: clamp(2.6rem, 5vw, 3.6rem);
+    line-height: 1.05;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .calc-output .out-figure .currency { font-size: .7em; opacity: .7; vertical-align: super; }
+  .calc-output .out-period { font-size: 1rem; color: #9bb1ad; margin-bottom: 22px; }
+  .calc-output .out-note {
+    font-size: .87rem;
+    color: #b8c4cf;
+    margin-bottom: 26px;
+    line-height: 1.55;
+  }
+  .calc-output .btn {
+    align-self: flex-start;
+  }
+
+  /* ---------- dashboard preview section ---------- */
+  .dashboard-preview {
+    margin-top: 50px;
+    position: relative;
+  }
+  .dashboard-frame {
+    position: relative;
+  }
+  .dashboard-frame .mockup {
+    transform: perspective(1600px) rotateX(2deg);
+    transform-origin: center top;
+  }
+  .dashboard-coming {
+    position: absolute;
+    top: 16px;
+    right: 22px;
+    background: rgba(255,255,255,.92);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: .74rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--navy);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    z-index: 2;
+  }
+  .dashboard-coming::before {
+    content: "";
+    width: 6px; height: 6px;
+    background: var(--teal);
+    border-radius: 50%;
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  .callouts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 56px;
+  }
+  .callout {
+    text-align: left;
+  }
+  .callout-num {
+    font-family: var(--serif);
+    color: var(--teal-deep);
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+  .callout h4 {
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .callout p {
+    font-size: .96rem;
+    color: #4a525e;
+    margin: 0;
+  }
+  .preview-cta {
+    text-align: center;
+    margin-top: 56px;
+  }
+
+  /* ---------- about ---------- */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    margin-top: 60px;
+  }
+  .person {
+    background: transparent;
+  }
+  .person-head {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    margin-bottom: 22px;
+  }
+  .avatar {
+    width: 84px; height: 84px;
+    border-radius: 50%;
+    background: var(--cream-2);
+    border: 1px solid var(--line);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--serif);
+    font-size: 1.6rem;
+    color: var(--navy);
+    flex-shrink: 0;
+  }
+  .person-name {
+    font-family: var(--serif);
+    font-size: 1.55rem;
+    color: var(--navy);
+    line-height: 1.1;
+    margin-bottom: 4px;
+  }
+  .person-role {
+    font-size: .82rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--teal-deep);
+  }
+  .person p {
+    font-size: .98rem;
+    color: #3a424f;
+    line-height: 1.6;
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq-list { margin-top: 50px; }
+  .faq-item {
+    border-top: 1px solid var(--line);
+    padding: 0;
+  }
+  .faq-list .faq-item:last-child { border-bottom: 1px solid var(--line); }
+  .faq-q {
+    width: 100%;
+    background: none;
+    border: 0;
+    text-align: left;
+    padding: 26px 40px 26px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--serif);
+    font-size: 1.25rem;
+    color: var(--navy);
+    line-height: 1.3;
+    cursor: pointer;
+    position: relative;
+    transition: color .15s ease;
+  }
+  .faq-q:hover { color: var(--teal-deep); }
+  .faq-q .icon {
+    width: 22px; height: 22px;
+    flex-shrink: 0;
+    margin-left: 16px;
+    position: relative;
+  }
+  .faq-q .icon::before, .faq-q .icon::after {
+    content: "";
+    position: absolute;
+    background: currentColor;
+    border-radius: 1px;
+    transition: transform .25s ease;
+  }
+  .faq-q .icon::before { top: 50%; left: 0; right: 0; height: 1.5px; transform: translateY(-50%); }
+  .faq-q .icon::after  { left: 50%; top: 0; bottom: 0; width: 1.5px; transform: translateX(-50%); }
+  .faq-item.open .faq-q .icon::after { transform: translateX(-50%) scaleY(0); }
+  .faq-a {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height .35s ease;
+  }
+  .faq-a-inner {
+    padding: 0 0 28px;
+    color: #3a424f;
+    font-size: 1rem;
+    line-height: 1.65;
+    max-width: 60ch;
+  }
+  .faq-a-inner p { margin: 0 0 .8em; }
+  .faq-a-inner p:last-child { margin: 0; }
+
+  /* ---------- final CTA ---------- */
+  .final {
+    text-align: center;
+    padding: clamp(80px, 10vw, 140px) 0;
+  }
+  .final h2 {
+    font-size: clamp(2.4rem, 4.5vw + 1rem, 4rem);
+    line-height: 1.05;
+    max-width: 14ch;
+    margin: 0 auto 32px;
+    color: #fdfdfb;
+  }
+  .final h2 .accent { font-style: italic; color: #6dd0c2; }
+  .final .btn-primary {
+    background: var(--teal);
+    color: #fff;
+    padding: 16px 30px;
+    font-size: 1.02rem;
+  }
+  .final-email {
+    margin-top: 32px;
+    color: #c0c7d2;
+    font-size: 1rem;
+  }
+  .final-email a { color: #6dd0c2; border-bottom: 1px solid rgba(109,208,194,.4); }
+  .final-email a:hover { color: #fff; border-bottom-color: #fff; }
+
+  /* ---------- footer ---------- */
+  footer {
+    background: var(--navy);
+    color: #8b95a4;
+    padding: 32px 0;
+    border-top: 1px solid #2b384a;
+    text-align: center;
+    font-size: .88rem;
+  }
+  footer .brand {
+    color: #fdfdfb;
+    font-size: 1.1rem;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+
+  /* ---------- reveal animation ---------- */
+  .reveal {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .reveal.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width: 960px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 50px; }
+    .problem-grid, .services, .callouts { grid-template-columns: 1fr; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .calc-wrap { grid-template-columns: 1fr; }
+    .calc-inputs, .calc-output { padding: 32px 28px; }
+    .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #fff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; gap: 0; padding: 8px 0; }
+    .nav-links.open { display: flex; }
+    .nav-links li { width: 100%; }
+    .nav-links a { display: block; padding: 14px 28px; }
+    .nav-links .nav-cta { margin: 12px 28px; }
+    .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
+  }
+  @media (max-width: 560px) {
+    .container { padding: 0 22px; }
+    .hero-cta .btn { flex: 1; min-width: 0; }
+    .credentials { font-size: .82rem; gap: 6px 14px; }
+    .service { padding: 28px 24px; }
+    .calc-inputs, .calc-output { padding: 28px 22px; }
+    .person-head { gap: 16px; }
+    .avatar { width: 68px; height: 68px; font-size: 1.3rem; }
+    .faq-q { font-size: 1.1rem; padding: 22px 32px 22px 0; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="#" class="brand" aria-label="Otterly Booked home">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" fill="none" stroke="#1a2332" stroke-width="1.5"/>
+        <path d="M12 22c0-4.5 3.5-8 8-8s8 3.5 8 8" fill="none" stroke="#2a9d8f" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="16" cy="19" r="1.4" fill="#1a2332"/>
+        <circle cx="24" cy="19" r="1.4" fill="#1a2332"/>
+        <path d="M18.5 24.5c.5.7 2.5.7 3 0" stroke="#1a2332" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+      </svg>
+      Otterly Booked
+    </a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false" id="navToggle">
+      <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <line x1="3" y1="6" x2="19" y2="6"/>
+        <line x1="3" y1="11" x2="19" y2="11"/>
+        <line x1="3" y1="16" x2="19" y2="16"/>
+      </svg>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#how-it-works">How it works</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#about">About us</a></li>
+      <li><a href="#calculator" class="btn btn-primary nav-cta">Build your dashboard</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div class="reveal">
+        <p class="eyebrow">Pricing intelligence for independent hotels</p>
+        <h1>The price on your rooms tonight? <span class="accent">It’s wrong.</span></h1>
+        <p class="hero-sub">We built dynamic pricing tools for Premier Inn, National Express, and some of the UK’s biggest brands. Now we’re building them for independent hotels — so a 50-room boutique gets the same pricing intelligence as an 800-room chain.</p>
+        <div class="hero-cta">
+          <a href="#calculator" class="btn btn-primary">Build your dashboard <span class="btn-arrow">→</span></a>
+          <a href="#contact" class="btn btn-secondary">Book a free call</a>
+        </div>
+        <div class="credentials">
+          <span>25% average revenue uplift from dynamic pricing</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>Built for 10–150 room hotels</span>
+          <span class="dot" aria-hidden="true"></span>
+          <span>The methodology used by the UK’s leading chains</span>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <!-- mini dashboard mockup -->
+        <div class="mockup" aria-hidden="true">
+          <div class="mockup-chrome">
+            <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+            <div class="url">otterlybooked.com/the-coastal-house</div>
+          </div>
+          <div class="mockup-body">
+            <div class="mockup-head">
+              <div class="mockup-hotel">The Coastal House <small>DEVON · 42 ROOMS</small></div>
+              <div class="mockup-pill">Live</div>
+            </div>
+            <div class="mockup-bigcard">
+              <div class="label">Annual revenue opportunity</div>
+              <div class="figure"><span class="currency">£</span>47,200</div>
+              <div class="sub">vs. your current pricing approach</div>
+            </div>
+            <div class="mockup-section-label">Next 7 nights · vs. comp set</div>
+            <div class="calendar">
+              <div class="cal-cell good"><span class="day">Mon</span><span class="price">£128</span></div>
+              <div class="cal-cell good"><span class="day">Tue</span><span class="price">£132</span></div>
+              <div class="cal-cell under"><span class="day">Wed</span><span class="price">£135</span></div>
+              <div class="cal-cell under"><span class="day">Thu</span><span class="price">£140</span></div>
+              <div class="cal-cell under"><span class="day">Fri</span><span class="price">£155</span></div>
+              <div class="cal-cell under"><span class="day">Sat</span><span class="price">£165</span></div>
+              <div class="cal-cell over"><span class="day">Sun</span><span class="price">£148</span></div>
+            </div>
+            <div class="mockup-section-label">Friday night · comp set</div>
+            <div class="competitors">
+              <div class="comp-row you">
+                <span class="name">Your hotel</span>
+                <span class="bar"><span class="fill" style="width:62%"></span></span>
+                <span class="price">£155</span>
+              </div>
+              <div class="comp-row">
+                <span class="name">Bay View Hotel</span>
+                <span class="bar"><span class="fill" style="width:78%"></span></span>
+                <span class="price">£195</span>
+              </div>
+              <div class="comp-row">
+                <span class="name">The Old Mill</span>
+                <span class="bar"><span class="fill" style="width:84%"></span></span>
+                <span class="price">£210</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ PROBLEM ============ -->
+<section class="bg-cream" id="problem">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">The problem</p>
+      <h2>Sound familiar?</h2>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-card reveal">
+        <span class="quote-mark">“</span>
+        <h3>You set your rates at the start of the season and barely touch them</h3>
+        <p>You know you should adjust more often. But between running the hotel, managing staff, and looking after guests, pricing falls to the bottom of the list. Meanwhile, the chains are adjusting theirs 30+ times a day.</p>
+      </div>
+      <div class="problem-card reveal">
+        <span class="quote-mark">“</span>
+        <h3>OTAs take 15–25% and there’s no obvious way out</h3>
+        <p>Booking.com and Expedia take a quarter of your revenue. You’d love more direct bookings, but they outspend you on marketing and their booking experience is hard to compete with.</p>
+      </div>
+      <div class="problem-card reveal">
+        <span class="quote-mark">“</span>
+        <h3>Your best nights sell out weeks in advance and you know you left money on the table</h3>
+        <p>That bank holiday weekend was fully booked by March. The festival Saturday sold out in days. You charged your standard rate and watched it fill instantly — which means you underpriced it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT WE DO / HOW IT WORKS ============ -->
+<section class="bg-white" id="how-it-works">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">What we do</p>
+      <h2>The same pricing intelligence we developed for the chains — built specifically for your hotel</h2>
+      <p class="lead">We track your competitors’ rates, local events, and market demand every day — and tell you exactly what to charge, and why. You get pricing recommendations from the experts. We do the heavy lifting. And unlike a piece of software you’re left to figure out on your own, there’s always a person behind it who knows your hotel.</p>
+    </div>
+
+    <div class="services" id="pricing">
+      <article class="service featured reveal">
+        <div class="service-meta">
+          <span>Your Pricing Dashboard</span>
+          <span class="sep" aria-hidden="true"></span>
+          <span>Free</span>
+          <span class="sep" aria-hidden="true"></span>
+          <span>No integration needed</span>
+        </div>
+        <h3>A live dashboard for your hotel — built for free</h3>
+        <p>We build a live dashboard showing how your rates compare to competitors across the next 90 days. It flags dates where you’re significantly under or overpriced, tracks rate changes in your market, and estimates the revenue you’re missing. No PMS connection. No installs. We build it from publicly available data and send you the link.</p>
+        <a href="#calculator" class="btn btn-primary">Build your dashboard <span class="btn-arrow">→</span></a>
+      </article>
+
+      <article class="service reveal">
+        <div class="service-meta">
+          <span>Pricing Quick Win</span>
+          <span class="sep" aria-hidden="true"></span>
+          <span>One-off engagement</span>
+        </div>
+        <h3>One period. Restructured. Measured.</h3>
+        <p>We take one period you’re struggling with — often a bank holiday, a festival, or high season — and restructure your rates based on market data, competitor positioning, and demand signals. You see the impact on that period’s revenue and decide whether to go further. Most hotels see 15–25% uplift on the dates we touch.</p>
+        <a href="#contact" class="btn btn-secondary">Book a free call</a>
+      </article>
+
+      <article class="service reveal">
+        <div class="service-meta">
+          <span>Revenue Partner</span>
+          <span class="sep" aria-hidden="true"></span>
+          <span>Ongoing monthly</span>
+        </div>
+        <h3>Your dedicated pricing team</h3>
+        <p>We monitor your market continuously, adjust your rates weekly, flag opportunities you’d otherwise miss, and report on the impact every month. Everything we did as pricing directors at the chains — without the £1,500 day rate.</p>
+        <a href="#contact" class="btn btn-secondary">Book a free call</a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ROI CALCULATOR ============ -->
+<section class="bg-cream" id="calculator">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">The opportunity</p>
+      <h2>How much is your pricing costing you?</h2>
+      <p class="lead">Move the sliders to match your hotel. The number on the right is what we typically see hotels like yours leave on the table each year.</p>
+    </div>
+
+    <div class="calc-wrap reveal">
+      <div class="calc-inputs">
+        <div class="calc-field">
+          <label for="rooms">Number of rooms <span class="value" id="roomsVal">42</span></label>
+          <input type="range" id="rooms" min="1" max="150" value="42" />
+        </div>
+        <div class="calc-field">
+          <label for="adr">Average nightly rate <span class="value" id="adrVal">£140</span></label>
+          <input type="range" id="adr" min="40" max="300" step="5" value="140" />
+        </div>
+        <div class="calc-field">
+          <label for="occ">Average occupancy <span class="value" id="occVal">68%</span></label>
+          <input type="range" id="occ" min="0" max="100" value="68" />
+        </div>
+        <div class="calc-field">
+          <label for="approach">Current pricing approach</label>
+          <select id="approach">
+            <option value="0.25">Flat rate year-round</option>
+            <option value="0.18" selected>Week / weekend split</option>
+            <option value="0.12">Monthly or seasonal tiers</option>
+            <option value="0.08">Algorithmic / RMS tool</option>
+            <option value="0.05">Fully dynamic pricing</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="calc-output">
+        <div class="out-label">Annual revenue opportunity</div>
+        <div class="out-figure"><span class="currency">£</span><span id="outFigure">0</span></div>
+        <div class="out-period" id="outPeriod">per year — based on your inputs</div>
+        <p class="out-note">An estimate based on our experience helping hotels like yours. Your free dashboard will show you the real number based on your actual market.</p>
+        <a href="#contact" class="btn btn-primary">Build your dashboard <span class="btn-arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DASHBOARD PREVIEW ============ -->
+<section class="bg-white">
+  <div class="container">
+    <div class="section-head reveal" style="text-align:center; margin-left:auto; margin-right:auto;">
+      <p class="eyebrow" style="justify-content:center;">Your dashboard</p>
+      <h2>This is what we build for every hotel we work with</h2>
+    </div>
+
+    <div class="dashboard-preview reveal">
+      <div class="dashboard-frame">
+        <div class="dashboard-coming">Sample preview</div>
+        <div class="mockup">
+          <div class="mockup-chrome">
+            <div class="dots"><span class="dot"></span><span class="dot"></span><span class="dot"></span></div>
+            <div class="url">otterlybooked.com/your-hotel</div>
+          </div>
+          <div class="mockup-body" style="padding: 32px;">
+            <div class="mockup-head">
+              <div>
+                <div class="mockup-hotel" style="font-size:1.6rem;">Your Hotel <small>YOUR LOCATION · YOUR ROOMS</small></div>
+              </div>
+              <div class="mockup-pill">Updated 12 mins ago</div>
+            </div>
+
+            <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:14px; margin-bottom:24px;">
+              <div class="mockup-bigcard" style="margin:0;">
+                <div class="label">Annual opportunity</div>
+                <div class="figure" style="font-size:1.9rem;"><span class="currency">£</span>52,400</div>
+                <div class="sub">+18% vs. current</div>
+              </div>
+              <div class="mockup-bigcard" style="margin:0; background:var(--cream); color:var(--navy); border:1px solid var(--line);">
+                <div class="label" style="color:var(--muted);">Underpriced dates</div>
+                <div class="figure" style="font-size:1.9rem; color:var(--warn);">23</div>
+                <div class="sub" style="color:var(--muted);">in next 90 days</div>
+              </div>
+              <div class="mockup-bigcard" style="margin:0; background:var(--cream); color:var(--navy); border:1px solid var(--line);">
+                <div class="label" style="color:var(--muted);">Vs. comp set</div>
+                <div class="figure" style="font-size:1.9rem; color:var(--navy);">−14%</div>
+                <div class="sub" style="color:var(--muted);">average rate gap</div>
+              </div>
+            </div>
+
+            <div class="mockup-section-label">Next 14 nights — colour shows where you sit vs. market</div>
+            <div class="calendar" style="grid-template-columns: repeat(14, 1fr); margin-bottom:24px;">
+              <div class="cal-cell good"><span class="day">11</span><span class="price">£128</span></div>
+              <div class="cal-cell good"><span class="day">12</span><span class="price">£132</span></div>
+              <div class="cal-cell under"><span class="day">13</span><span class="price">£135</span></div>
+              <div class="cal-cell under"><span class="day">14</span><span class="price">£140</span></div>
+              <div class="cal-cell under"><span class="day">15</span><span class="price">£155</span></div>
+              <div class="cal-cell under"><span class="day">16</span><span class="price">£165</span></div>
+              <div class="cal-cell over"><span class="day">17</span><span class="price">£148</span></div>
+              <div class="cal-cell good"><span class="day">18</span><span class="price">£128</span></div>
+              <div class="cal-cell good"><span class="day">19</span><span class="price">£130</span></div>
+              <div class="cal-cell under"><span class="day">20</span><span class="price">£140</span></div>
+              <div class="cal-cell under"><span class="day">21</span><span class="price">£145</span></div>
+              <div class="cal-cell under"><span class="day">22</span><span class="price">£170</span></div>
+              <div class="cal-cell under"><span class="day">23</span><span class="price">£185</span></div>
+              <div class="cal-cell good"><span class="day">24</span><span class="price">£155</span></div>
+            </div>
+
+            <div style="display:flex; gap:18px; font-size:.78rem; color:var(--muted); flex-wrap:wrap;">
+              <span style="display:inline-flex; align-items:center; gap:6px;"><span style="width:10px;height:10px;background:var(--good-soft);border-radius:3px;display:inline-block;"></span> On market</span>
+              <span style="display:inline-flex; align-items:center; gap:6px;"><span style="width:10px;height:10px;background:var(--warn-soft);border-radius:3px;display:inline-block;"></span> Underpriced</span>
+              <span style="display:inline-flex; align-items:center; gap:6px;"><span style="width:10px;height:10px;background:var(--amber-soft);border-radius:3px;display:inline-block;"></span> Overpriced</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="callouts">
+        <div class="callout reveal">
+          <div class="callout-num">01</div>
+          <h4>Your rates vs competitors</h4>
+          <p>See exactly where you sit against 3–5 comparable hotels across the next 90 days.</p>
+        </div>
+        <div class="callout reveal">
+          <div class="callout-num">02</div>
+          <h4>Dates you’re underpriced</h4>
+          <p>Colour-coded flags for events, bank holidays, and high-demand periods where your rate is below market.</p>
+        </div>
+        <div class="callout reveal">
+          <div class="callout-num">03</div>
+          <h4>Your revenue opportunity</h4>
+          <p>A clear pound figure showing what smarter pricing could earn you this year.</p>
+        </div>
+      </div>
+
+      <div class="preview-cta reveal">
+        <a href="#calculator" class="btn btn-primary">See yours — it takes 30 seconds <span class="btn-arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="bg-cream" id="about">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">About us</p>
+      <h2>We’ve done this before. At scale.</h2>
+    </div>
+
+    <div class="about-grid">
+      <div class="person reveal">
+        <div class="person-head">
+          <div class="avatar" aria-hidden="true">NN</div>
+          <div>
+            <div class="person-name">Nathan Noerr</div>
+            <div class="person-role">Pricing &amp; Revenue Strategy</div>
+          </div>
+        </div>
+        <p>Nathan has spent over a decade leading pricing transformations for some of the UK’s biggest brands. At National Express, he led the shift from manual pricing to machine-learning-driven dynamic pricing, unlocking £7m in additional profit. At Premier Inn, he ran pricing and strategy for their 800+ hotels, and oversaw the shift to the new dynamic pricing world. He wants to do the same for your hotel.</p>
+        <p>Previously at Strategy&amp; (PwC), and across consulting engagements for M&amp;S, Bain Capital, SHL, and others.</p>
+      </div>
+
+      <div class="person reveal">
+        <div class="person-head">
+          <div class="avatar" aria-hidden="true">AR</div>
+          <div>
+            <div class="person-name">Alex Robinson</div>
+            <div class="person-role">Commercial &amp; Technology</div>
+          </div>
+        </div>
+        <p>Alex has been CFO of a tech company serving tens of millions of users, a strategy consultant at BCG, and an investment banker at Citi. At Gett, he served as both Finance Director and Operations Director, running UK operations and leading the business through its transition to profitability.</p>
+        <p>He builds the data infrastructure and commercial model behind Otterly Booked — making sure the pricing intelligence is accurate, the tools work, and the economics make sense for independent hotels. He joined because he saw an industry where the technology existed but nobody had packaged it properly for the people who needed it most.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="bg-white">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">FAQ</p>
+      <h2>Questions we get asked</h2>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-q" aria-expanded="false">
+          Do I need to connect my booking system?
+          <span class="icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          <p>No. Our initial analysis uses only publicly available data — your rates, your competitors’ rates, and local demand signals. No PMS integration, no setup, no IT involvement. If we work together ongoing, we can integrate with your systems later to go deeper — but it’s never required to get started.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-q" aria-expanded="false">
+          How are you different from RMS platforms we’ve seen?
+          <span class="icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          <p>Most are self-serve software tools. You sign up, connect your PMS, and figure it out yourself. Some hotels get great results from them. But most independents we’ve spoken to either never adopted one or tried and stopped using it — because software without expertise behind it only gets you so far.</p>
+          <p>We’re people who manage your pricing for you, backed by our own expertise and technology. We’re so confident in our approach that we offer a performance guarantee — if we don’t deliver measurable uplift, you don’t pay.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-q" aria-expanded="false">
+          What size hotel is this for?
+          <span class="icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          <p>Primarily 20–150 rooms. Large enough that pricing optimisation moves the needle, small enough that hiring a full-time revenue manager doesn’t make sense.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-q" aria-expanded="false">
+          What does it cost?
+          <span class="icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          <p>The dashboard is free. The Quick Win is a one-off engagement. The Revenue Partner is a monthly fee that’s typically less than what you’d save in a single month. We’ll give you exact numbers on a call once we understand your hotel.</p>
+        </div></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-q" aria-expanded="false">
+          How quickly will I see results?
+          <span class="icon" aria-hidden="true"></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">
+          <p>The dashboard shows you your opportunity immediately. If you go ahead with a Quick Win, most hotels see measurable impact within the first peak period we work on — usually 4–8 weeks.</p>
+        </div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FINAL CTA ============ -->
+<section class="bg-ink final" id="contact">
+  <div class="container">
+    <div class="reveal">
+      <h2>The price on your rooms tonight? <span class="accent">Let’s fix it.</span></h2>
+      <a href="#calculator" class="btn btn-primary">Build your dashboard <span class="btn-arrow">→</span></a>
+      <p class="final-email">Or email us at <a href="mailto:hello@otterlybooked.com">hello@otterlybooked.com</a> — we reply to every message personally.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" fill="none" stroke="#fdfdfb" stroke-width="1.5"/>
+        <path d="M12 22c0-4.5 3.5-8 8-8s8 3.5 8 8" fill="none" stroke="#6dd0c2" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="16" cy="19" r="1.4" fill="#fdfdfb"/>
+        <circle cx="24" cy="19" r="1.4" fill="#fdfdfb"/>
+        <path d="M18.5 24.5c.5.7 2.5.7 3 0" stroke="#fdfdfb" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+      </svg>
+      Otterly Booked
+    </div>
+    <div>© 2026 Otterly Booked · Pricing intelligence for independent hotels · <a href="mailto:hello@otterlybooked.com" style="color:#6dd0c2;">hello@otterlybooked.com</a></div>
+  </div>
+</footer>
+
+<script>
+  // ---------- nav: scrolled state + mobile toggle ----------
+  const nav = document.getElementById('nav');
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  const onScroll = () => {
+    nav.classList.toggle('scrolled', window.scrollY > 12);
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  navToggle.addEventListener('click', () => {
+    const open = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  navLinks.addEventListener('click', (e) => {
+    if (e.target.tagName === 'A') {
+      navLinks.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // ---------- ROI calculator ----------
+  const rooms    = document.getElementById('rooms');
+  const adr      = document.getElementById('adr');
+  const occ      = document.getElementById('occ');
+  const approach = document.getElementById('approach');
+
+  const roomsVal = document.getElementById('roomsVal');
+  const adrVal   = document.getElementById('adrVal');
+  const occVal   = document.getElementById('occVal');
+
+  const outFigure = document.getElementById('outFigure');
+  const outPeriod = document.getElementById('outPeriod');
+
+  const fmt = new Intl.NumberFormat('en-GB');
+
+  function calc() {
+    const r = parseInt(rooms.value, 10);
+    const a = parseInt(adr.value, 10);
+    const o = parseInt(occ.value, 10) / 100;
+    const u = parseFloat(approach.value);
+
+    roomsVal.textContent = r;
+    adrVal.textContent   = '£' + a;
+    occVal.textContent   = Math.round(o * 100) + '%';
+
+    const baseRevenue   = r * a * o * 365;
+    const opportunity   = Math.round(baseRevenue * u);
+
+    // round to nearest £100 for cleaner display
+    const rounded = Math.round(opportunity / 100) * 100;
+    outFigure.textContent = fmt.format(rounded);
+
+    const approachLabel = approach.options[approach.selectedIndex].text.toLowerCase();
+    if (u <= 0.05) {
+      outPeriod.textContent = 'per year — already dynamic, room to refine positioning';
+    } else {
+      outPeriod.textContent = 'per year — based on your ' + approachLabel + ' approach';
+    }
+  }
+  [rooms, adr, occ, approach].forEach(el => el.addEventListener('input', calc));
+  calc();
+
+  // ---------- FAQ accordion ----------
+  document.querySelectorAll('.faq-item').forEach(item => {
+    const q = item.querySelector('.faq-q');
+    const a = item.querySelector('.faq-a');
+    q.addEventListener('click', () => {
+      const open = item.classList.toggle('open');
+      q.setAttribute('aria-expanded', open ? 'true' : 'false');
+      a.style.maxHeight = open ? a.scrollHeight + 'px' : '0';
+    });
+  });
+
+  // ---------- reveal on scroll ----------
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  }
+</script>
+
+</body>
+</html>
