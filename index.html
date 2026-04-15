@@ -1100,7 +1100,7 @@
         </div>
         <div class="calc-field">
           <label for="adr">Average nightly rate <span class="value" id="adrVal">£140</span></label>
-          <input type="range" id="adr" min="40" max="300" step="5" value="140" />
+          <input type="range" id="adr" min="40" max="500" step="5" value="140" />
         </div>
         <div class="calc-field">
           <label for="occ">Average occupancy <span class="value" id="occVal">68%</span></label>
@@ -1109,11 +1109,19 @@
         <div class="calc-field">
           <label for="approach">Current pricing approach</label>
           <select id="approach">
-            <option value="0.25">Flat rate year-round</option>
-            <option value="0.18" selected>Week / weekend split</option>
-            <option value="0.12">Monthly or seasonal tiers</option>
-            <option value="0.08">Algorithmic / RMS tool</option>
-            <option value="0.05">Fully dynamic pricing</option>
+            <!--
+              Uplift values express the % revenue gain moving from each tier to Dynamic.
+              Pricing hierarchy (multiplicative chain vs. a static/flat baseline):
+                Seasonal     = +5% vs static
+                Week/weekend = +5% vs seasonal
+                Algorithmic  = +4% vs week/weekend
+                Dynamic      = +8% vs algorithmic
+              Uplift to Dynamic = (Dynamic_mult / Current_mult) - 1.
+            -->
+            <option value="0.17936" selected>Monthly / seasonal tiers</option>
+            <option value="0.12320">Week / weekend split</option>
+            <option value="0.08000">Algorithmic / RMS tool</option>
+            <option value="0">Fully dynamic pricing</option>
           </select>
         </div>
       </div>
@@ -1368,10 +1376,10 @@
     const rounded = Math.round(opportunity / 100) * 100;
     outFigure.textContent = fmt.format(rounded);
 
-    const approachLabel = approach.options[approach.selectedIndex].text.toLowerCase();
-    if (u <= 0.05) {
-      outPeriod.textContent = 'per year, already dynamic, room to refine positioning';
+    if (u === 0) {
+      outPeriod.textContent = "You’re already running dynamic pricing.";
     } else {
+      const approachLabel = approach.options[approach.selectedIndex].text.toLowerCase();
       outPeriod.textContent = 'per year, based on your ' + approachLabel + ' approach';
     }
   }
