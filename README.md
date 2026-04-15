@@ -1,4 +1,4 @@
-# Otterly Booked — Marketing Site
+# Otterly Booked · Marketing Site
 
 Single-page marketing site for [otterlybooked.com](https://otterlybooked.com). Pricing intelligence consultancy for independent UK hotels (20–150 rooms).
 
@@ -8,7 +8,7 @@ Static HTML, no build step, no framework. Deploy by dropping the repo onto any s
 
 ```
 otterly-booked-site/
-├── index.html       # Entire site — HTML, embedded CSS, embedded JS
+├── index.html       # Entire site: HTML, embedded CSS, embedded JS
 ├── images/          # Headshots, OG image, favicons (add as needed)
 └── README.md
 ```
@@ -38,7 +38,7 @@ Netlify will deploy this site for free with HTTPS, global CDN, and atomic deploy
 3. **Connect to GitHub** and select `otterly-booked-site`.
 4. **Build settings:**
    - Build command: *(leave blank)*
-   - Publish directory: `.` *(or leave blank — repo root)*
+   - Publish directory: `.` *(or leave blank, repo root)*
 5. Click **Deploy site**. First deploy takes ~30 seconds. Netlify will give you a temporary URL like `https://gleaming-otter-abc123.netlify.app`.
 6. Every push to `main` triggers a new deploy automatically. Pull requests get preview URLs.
 
@@ -47,13 +47,13 @@ Netlify will deploy this site for free with HTTPS, global CDN, and atomic deploy
 In Netlify:
 
 1. Go to **Site settings → Domain management → Add custom domain**.
-2. Enter `otterlybooked.com`. Netlify will also offer to add `www.otterlybooked.com` — accept both.
+2. Enter `otterlybooked.com`. Netlify will also offer to add `www.otterlybooked.com`. Accept both.
 3. Netlify will show you DNS records to set. You'll need them for the next step.
 
 In Namecheap (Domain List → Manage → Advanced DNS):
 
 1. Delete any existing `A`, `CNAME`, or `URL Redirect` records for `@` and `www`.
-2. Add these records (Netlify will show the exact values — these are the typical ones):
+2. Add these records (Netlify will show the exact values; these are the typical ones):
 
    | Type | Host | Value | TTL |
    |------|------|-------|-----|
