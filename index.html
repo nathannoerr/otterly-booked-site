@@ -621,13 +621,14 @@
     content: "";
     position: absolute;
     top: -14px;
-    left: 12.5%;
-    right: 12.5%;
     height: 1.3px;
     background: rgba(255,255,255,.22);
   }
   .org-row-4 { grid-template-columns: repeat(4, 1fr); }
   .org-row-3 { grid-template-columns: repeat(3, 1fr); }
+  /* Connector bar should stop at the centre of the outermost boxes */
+  .org-row-4::before { left: 12.5%;  right: 12.5%;  }
+  .org-row-3::before { left: 16.667%; right: 16.667%; }
   .org-row .org-box { position: relative; }
   .org-row .org-box::before {
     content: "";
