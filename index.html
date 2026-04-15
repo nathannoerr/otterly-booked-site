@@ -403,107 +403,217 @@
   .comp-row .price { font-variant-numeric: tabular-nums; color: var(--ink); font-weight: 500; text-align: right; }
 
   /* ---------- problem ---------- */
+  .problem-intro {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--muted);
+    text-align: center;
+    margin: 0 0 40px;
+  }
   .problem-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
-    margin-top: 60px;
+    gap: 20px;
   }
   .problem-card {
     background: var(--white);
     border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 32px 28px 28px;
-    transition: transform .25s ease, box-shadow .25s ease;
+    border-radius: 12px;
+    padding: 24px 22px;
+    transition: transform .2s ease, box-shadow .2s ease;
   }
   .problem-card:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow);
-  }
-  .quote-mark {
-    font-family: var(--serif);
-    font-size: 3.2rem;
-    line-height: .8;
-    color: var(--teal);
-    margin-bottom: 12px;
-    display: block;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
   }
   .problem-card h3 {
-    font-size: 1.18rem;
-    line-height: 1.3;
-    margin-bottom: 14px;
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    line-height: 1.25;
+    margin: 0 0 10px;
+    color: var(--navy);
   }
   .problem-card p {
     color: #4a525e;
-    font-size: .96rem;
+    font-size: .94rem;
+    line-height: 1.5;
     margin: 0;
   }
 
-  /* ---------- what we do ---------- */
+  /* ---------- what we do (free vs paid split) ---------- */
   .section-head { max-width: 760px; margin-bottom: 60px; }
   .section-head .lead { color: #4a525e; }
 
-  .services {
+  .split {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr;
     gap: 24px;
   }
-  .service {
-    background: var(--white);
-    border: 1px solid var(--line);
+  .split-col {
     border-radius: var(--radius-lg);
-    padding: 36px 32px;
+    padding: 40px 36px;
     display: flex;
     flex-direction: column;
-    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
   }
-  .service:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow);
-    border-color: var(--line-2);
+  .split-free {
+    background: var(--white);
+    border: 1px solid var(--line);
   }
-  .service.featured {
+  .split-paid {
     background: var(--navy);
     color: #e9edf3;
-    border-color: var(--navy);
+    border: 1px solid var(--navy);
   }
-  .service.featured h3 { color: #fff; }
-  .service.featured p { color: #b8c1cd; }
-  .service.featured .service-meta { color: #8db8b1; }
-  .service.featured .service-meta .sep { background: #4a5666; }
-  .service-meta {
+  .split-kicker {
     font-size: .72rem;
-    letter-spacing: .14em;
+    letter-spacing: .18em;
     text-transform: uppercase;
     color: var(--teal-deep);
-    margin-bottom: 16px;
+    margin: 0 0 14px;
+    font-weight: 500;
+  }
+  .split-paid .split-kicker { color: #6dd0c2; }
+  .split-col h3 {
+    font-size: 1.55rem;
+    margin: 0 0 6px;
+    color: var(--navy);
+  }
+  .split-paid h3 { color: #fff; }
+  .split-sub {
+    font-size: .95rem;
+    color: var(--muted);
+    margin: 0 0 28px;
+  }
+  .split-paid .split-sub { color: #8db8b1; }
+  .split-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 32px;
     display: flex;
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-  .service-meta .sep {
-    width: 4px; height: 4px;
-    background: var(--line-2);
-    border-radius: 50%;
-  }
-  .service h3 {
-    font-size: 1.45rem;
-    margin-bottom: 14px;
-  }
-  .service p {
-    font-size: .96rem;
-    color: #4a525e;
-    margin: 0 0 24px;
+    flex-direction: column;
+    gap: 22px;
     flex: 1;
   }
-  .service .btn { align-self: flex-start; }
-  .service.featured .btn-secondary {
+  .split-list li {
+    font-size: .95rem;
+    line-height: 1.55;
+    color: #3a424f;
+    padding-left: 22px;
+    position: relative;
+  }
+  .split-paid .split-list li { color: #c0c7d2; }
+  .split-list li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 10px;
+    height: 2px;
+    background: var(--teal);
+    border-radius: 2px;
+  }
+  .split-paid .split-list li::before { background: #6dd0c2; }
+  .split-list li strong {
+    display: block;
+    color: var(--navy);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .split-paid .split-list li strong { color: #fff; }
+  .split-col .btn { align-self: flex-start; }
+  .split-paid .btn-secondary {
     color: #fff;
     border-color: rgba(255,255,255,.25);
   }
-  .service.featured .btn-secondary:hover {
+  .split-paid .btn-secondary:hover {
     border-color: rgba(255,255,255,.65);
+  }
+
+  /* ---------- org chart (where we fit) ---------- */
+  .orgchart-section h2 { color: #fdfdfb; }
+  .orgchart-section .eyebrow { color: #6dd0c2; }
+  .orgchart-section .eyebrow::before { background: #6dd0c2; }
+  .orgchart-wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) 80px minmax(0, 1fr);
+    gap: 20px;
+    align-items: center;
+    margin-top: 40px;
+  }
+  .orgchart {
+    padding: 22px 20px 24px;
+    border-radius: 14px;
+    background: rgba(255,255,255,.02);
+    border: 1px solid rgba(255,255,255,.08);
+  }
+  .orgchart-label {
+    font-size: .7rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: #8db8b1;
+    text-align: center;
+    margin: 0 0 16px;
+  }
+  .org-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 8px;
+  }
+  .org-row:last-child { margin-bottom: 0; }
+  .org-row-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4px;
+  }
+  .org-row-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 6px;
+  }
+  .org-row-small .org-box { font-size: .64rem; padding: 4px 5px; }
+  .org-box {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,.22);
+    border-radius: 5px;
+    padding: 7px 10px;
+    font-size: .78rem;
+    color: #e9edf3;
+    text-align: center;
+    font-weight: 500;
+    line-height: 1.2;
+    min-width: 0;
+  }
+  .org-row:not(.org-row-4):not(.org-row-2) .org-box { min-width: 140px; }
+  .org-accent {
+    background: var(--teal);
+    border-color: var(--teal);
+    color: #fff;
+  }
+  .org-accent-wide { min-width: 220px !important; padding: 10px 16px; }
+  .org-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--serif);
+    font-size: 1rem;
+    padding: 8px 14px;
+    min-width: 200px;
+    justify-content: center;
+  }
+  .org-logo img { width: 24px; height: 24px; object-fit: contain; flex-shrink: 0; }
+  .orgchart-bridge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .orgchart-caption {
+    margin: 44px auto 0;
+    max-width: 62ch;
+    text-align: center;
+    color: #c0c7d2;
+    font-size: 1.05rem;
+    line-height: 1.6;
   }
 
   /* ---------- ROI calculator ---------- */
@@ -683,11 +793,74 @@
   }
 
   /* ---------- about ---------- */
-  .about-grid {
+  .about-layout {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
     gap: 56px;
-    margin-top: 60px;
+    margin-top: 40px;
+    align-items: start;
+  }
+  .about-bios {
+    display: flex;
+    flex-direction: column;
+    gap: 44px;
+  }
+  .about-panel {
+    background: var(--teal-tint);
+    border: 1px solid #c5e0db;
+    border-radius: 18px;
+    padding: 34px 32px;
+    position: sticky;
+    top: 100px;
+  }
+  .about-panel h3 {
+    font-family: var(--serif);
+    font-size: 1.45rem;
+    color: var(--navy);
+    margin: 0 0 16px;
+    line-height: 1.2;
+  }
+  .about-panel p {
+    color: #3a424f;
+    font-size: .98rem;
+    line-height: 1.55;
+    margin: 0 0 14px;
+  }
+  .about-panel .panel-sub {
+    font-weight: 500;
+    color: var(--navy);
+    margin: 22px 0 14px;
+  }
+  .about-panel ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .about-panel li {
+    font-size: .92rem;
+    line-height: 1.5;
+    color: #3a424f;
+    position: relative;
+    padding-left: 22px;
+  }
+  .about-panel li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 7px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--teal);
+  }
+  .about-panel li strong {
+    color: var(--navy);
+    display: block;
+    margin-bottom: 2px;
+    font-weight: 600;
   }
   .person {
     background: transparent;
@@ -849,8 +1022,12 @@
   /* ---------- responsive ---------- */
   @media (max-width: 960px) {
     .hero-grid { grid-template-columns: 1fr; gap: 50px; }
-    .problem-grid, .services, .callouts { grid-template-columns: 1fr; }
-    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .problem-grid, .callouts { grid-template-columns: 1fr; }
+    .split { grid-template-columns: 1fr; gap: 20px; }
+    .about-layout { grid-template-columns: 1fr; gap: 40px; }
+    .about-panel { position: static; }
+    .orgchart-wrap { grid-template-columns: 1fr; gap: 18px; }
+    .orgchart-bridge { transform: rotate(90deg); margin: 4px auto; }
     .calc-wrap { grid-template-columns: 1fr; }
     .calc-inputs, .calc-output { padding: 32px 28px; }
     .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #fff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; gap: 0; padding: 8px 0; }
@@ -864,11 +1041,12 @@
     .container { padding: 0 22px; }
     .hero-cta .btn { flex: 1; min-width: 0; }
     .credentials { font-size: .82rem; gap: 6px 14px; }
-    .service { padding: 28px 24px; }
+    .split-col { padding: 32px 26px; }
     .calc-inputs, .calc-output { padding: 28px 22px; }
     .person-head { gap: 16px; }
     .avatar { width: 68px; height: 68px; font-size: 1.3rem; }
     .faq-q { font-size: 1.1rem; padding: 22px 32px 22px 0; }
+    .org-row-small .org-box { font-size: .58rem; padding: 3px 4px; }
   }
 </style>
 </head>
@@ -973,111 +1151,132 @@
 <!-- ============ PROBLEM ============ -->
 <section class="bg-cream" id="problem">
   <div class="container">
-    <div class="section-head reveal">
-      <p class="eyebrow">The problem</p>
-      <h2>Sound familiar?</h2>
-    </div>
+    <p class="problem-intro reveal">Sound familiar?</p>
     <div class="problem-grid">
       <div class="problem-card reveal">
-        <span class="quote-mark">“</span>
-        <h3>You set your rates at the start of the season and barely touch them</h3>
-        <p>You know you should adjust more often. But between running the hotel, managing staff, and looking after guests, pricing falls to the bottom of the list. Meanwhile, the chains are adjusting theirs 30+ times a day.</p>
+        <h3>You set your rates in January and barely touch them again</h3>
+        <p>The chains adjust theirs 30+ times a day. You don’t have time to adjust yours once a week.</p>
       </div>
       <div class="problem-card reveal">
-        <span class="quote-mark">“</span>
-        <h3>OTAs take 15–25% and there’s no obvious way out</h3>
-        <p>Booking.com and Expedia take a quarter of your revenue. You’d love more direct bookings, but they outspend you on marketing and their booking experience is hard to compete with.</p>
+        <h3>Your best nights sell out weeks early, at your standard rate</h3>
+        <p>If it fills instantly, you underpriced it. But by the time you realise, those rooms are gone forever.</p>
       </div>
       <div class="problem-card reveal">
-        <span class="quote-mark">“</span>
-        <h3>Your best nights sell out weeks in advance and you know you left money on the table</h3>
-        <p>That bank holiday weekend was fully booked by March. The festival Saturday sold out in days. You charged your standard rate and watched it fill instantly, which means you underpriced it.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ============ ABOUT ============ -->
-<section class="bg-white" id="about">
-  <div class="container">
-    <div class="section-head reveal">
-      <p class="eyebrow">About us</p>
-      <h2>We’ve done this before. At scale.</h2>
-    </div>
-
-    <div class="about-grid">
-      <div class="person reveal">
-        <div class="person-head">
-          <img class="avatar" src="images/NMN.jpg" alt="Nathan Noerr" />
-          <div>
-            <div class="person-name">Nathan Noerr</div>
-            <div class="person-role">Pricing &amp; Revenue Strategy</div>
-          </div>
-        </div>
-        <p>Nathan has spent over a decade leading pricing transformations for some of the UK’s biggest brands. At National Express, he led the shift from manual pricing to machine-learning-driven dynamic pricing, unlocking £7m in additional profit. At Premier Inn, he ran pricing and strategy for their 800+ hotels, and oversaw the shift to the new dynamic pricing world. He wants to do the same for your hotel.</p>
-        <p>Previously at Strategy&amp; (PwC), and across consulting engagements for M&amp;S, Bain Capital, SHL, and others.</p>
-      </div>
-
-      <div class="person reveal">
-        <div class="person-head">
-          <img class="avatar" src="images/AJR.jpg" alt="Alex Robinson" />
-          <div>
-            <div class="person-name">Alex Robinson</div>
-            <div class="person-role">Commercial &amp; Technology</div>
-          </div>
-        </div>
-        <p>Alex has been CFO of a tech company serving tens of millions of users, a strategy consultant at BCG, and an investment banker at Citi. At Gett, he served as both Finance Director and Operations Director, running UK operations and leading the business through its transition to profitability.</p>
-        <p>He builds the data infrastructure and commercial model behind Otterly Booked, making sure the pricing intelligence is accurate, the tools work, and the economics make sense for independent hotels. He joined because he saw an industry where the technology existed but nobody had packaged it properly for the people who needed it most.</p>
+        <h3>Your inbox is full of software promising to fix this</h3>
+        <p>Another SaaS tool, another dashboard you won’t use. None of them know your hotel and none of them come with a human who actually does the work.</p>
       </div>
     </div>
   </div>
 </section>
 
 <!-- ============ WHAT WE DO / HOW IT WORKS ============ -->
-<section class="bg-cream" id="how-it-works">
+<section class="bg-white" id="how-it-works">
   <div class="container">
     <div class="section-head reveal">
       <p class="eyebrow">What we do</p>
       <h2>The same pricing intelligence we developed for the chains, built specifically for your hotel</h2>
-      <p class="lead">We track your competitors’ rates, local events, and market demand every day, and tell you exactly what to charge, and why. You get pricing recommendations from the experts. We do the heavy lifting. And unlike a piece of software you’re left to figure out on your own, there’s always a person behind it who knows your hotel.</p>
+      <p class="lead">We track your competitors’ rates, local events, and market demand every day, and alert you to exactly what to charge, and why. You get pricing recommendations from people who’ve actually done this at scale. And unlike a piece of software you’re left to figure out on your own, there’s always someone behind it who knows your hotel.</p>
     </div>
 
-    <div class="services" id="pricing">
-      <article class="service featured reveal">
-        <div class="service-meta">
-          <span>Your Pricing Dashboard</span>
-          <span class="sep" aria-hidden="true"></span>
-          <span>Free</span>
-          <span class="sep" aria-hidden="true"></span>
-          <span>No integration needed</span>
-        </div>
-        <h3>A live dashboard for your hotel, built for free</h3>
-        <p>We build a live dashboard showing how your rates compare to competitors across the next 90 days. It flags dates where you’re significantly under or overpriced, tracks rate changes in your market, and estimates the revenue you’re missing. No PMS connection. No installs. We build it from publicly available data and send you the link.</p>
+    <div class="split" id="pricing">
+      <article class="split-col split-free reveal">
+        <p class="split-kicker">Start free</p>
+        <h3>Your Pricing Dashboard</h3>
+        <p class="split-sub">Free · No integration needed</p>
+        <ul class="split-list">
+          <li>
+            <strong>We build your dashboard.</strong>
+            A live view of how your rates compare to 3–5 competitors across the next 90 days. Updated daily. No PMS connection, no setup. We build it from publicly available data and send you the link.
+          </li>
+          <li>
+            <strong>Weekly email alerts.</strong>
+            Every week you get an email: “Your Saturday rate is £28 below your comp set,” or “Competitor X just raised prices for the bank holiday, you haven’t.” Actionable, specific, takes 30 seconds to read.
+          </li>
+          <li>
+            <strong>You decide what to do with it.</strong>
+            Some hotels take our alerts and adjust rates themselves. That alone can be worth thousands a year. If you want us to do more, we’re right here.
+          </li>
+        </ul>
         <a href="#calculator" class="btn btn-primary">Build your dashboard <span class="btn-arrow">→</span></a>
       </article>
 
-      <article class="service reveal">
-        <div class="service-meta">
-          <span>Pricing Quick Win</span>
-          <span class="sep" aria-hidden="true"></span>
-          <span>One-off engagement</span>
-        </div>
-        <h3>One period. Restructured. Measured.</h3>
-        <p>We take one period you’re struggling with (often a bank holiday, a festival, or high season) and restructure your rates based on market data, competitor positioning, and demand signals. You see the impact on that period’s revenue and decide whether to go further. Most hotels see 15–25% uplift on the dates we touch.</p>
-        <a href="#contact" class="btn btn-secondary">Book a free call</a>
-      </article>
-
-      <article class="service reveal">
-        <div class="service-meta">
-          <span>Revenue Partner</span>
-          <span class="sep" aria-hidden="true"></span>
-          <span>Ongoing monthly</span>
-        </div>
-        <h3>Your dedicated pricing team</h3>
-        <p>We monitor your market continuously, adjust your rates weekly, flag opportunities you’d otherwise miss, and report on the impact every month. Everything we did as pricing directors at the chains, without the £1,500 day rate.</p>
-        <a href="#contact" class="btn btn-secondary">Book a free call</a>
+      <article class="split-col split-paid reveal">
+        <p class="split-kicker">We do it for you</p>
+        <h3>Your Dedicated Revenue Team</h3>
+        <p class="split-sub">Pricing done, not just recommended</p>
+        <ul class="split-list">
+          <li>
+            <strong>We research your market and tell you exactly what to change.</strong>
+            Not generic advice: specific rate changes for specific dates, backed by competitor data, event calendars, and demand signals. Actionable from day one.
+          </li>
+          <li>
+            <strong>We become your revenue management function.</strong>
+            Weekly rate adjustments, competitor monitoring, seasonal strategy, monthly reporting. Everything a pricing director does, without the £1,500 day rate.
+          </li>
+          <li>
+            <strong>Once you trust it, we automate.</strong>
+            When you’ve seen the results and you’re comfortable, we set up rules-based automation so pricing runs in the background. You stay in control. We stay watching.
+          </li>
+        </ul>
+        <a href="#contact" class="btn btn-secondary">Book a free call <span class="btn-arrow">→</span></a>
       </article>
     </div>
+  </div>
+</section>
+
+<!-- ============ ORG CHART / WHERE WE FIT ============ -->
+<section class="bg-ink orgchart-section">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Where we fit</p>
+      <h2>The pricing team you don’t have</h2>
+    </div>
+
+    <div class="orgchart-wrap reveal">
+      <!-- BIG CHAIN -->
+      <div class="orgchart orgchart-big">
+        <p class="orgchart-label">A big hotel chain</p>
+        <div class="org-row"><div class="org-box">CEO</div></div>
+        <div class="org-row org-row-4">
+          <div class="org-box">Marketing</div>
+          <div class="org-box">Finance</div>
+          <div class="org-box">Operations</div>
+          <div class="org-box">Commercial</div>
+        </div>
+        <div class="org-row"><div class="org-box org-accent org-accent-wide">Revenue Management</div></div>
+        <div class="org-row org-row-4 org-row-small">
+          <div class="org-box">Head of Revenue</div>
+          <div class="org-box">Pricing Analyst</div>
+          <div class="org-box">Distribution Mgr</div>
+          <div class="org-box">Market Intel</div>
+        </div>
+      </div>
+
+      <!-- BRIDGE -->
+      <div class="orgchart-bridge" aria-hidden="true">
+        <svg viewBox="0 0 60 28" width="60" height="28">
+          <path d="M4 14 L50 14 M42 6 L52 14 L42 22" stroke="#2a9d8f" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+
+      <!-- YOUR HOTEL -->
+      <div class="orgchart orgchart-small">
+        <p class="orgchart-label">Your hotel</p>
+        <div class="org-row"><div class="org-box">Owner</div></div>
+        <div class="org-row org-row-2">
+          <div class="org-box">Front desk</div>
+          <div class="org-box">Housekeeping</div>
+        </div>
+        <div class="org-row">
+          <div class="org-box org-accent org-logo">
+            <img src="images/Logo.png" alt="" />
+            <span>Otterly Booked</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="orgchart-caption reveal">Big hotel chains have entire teams dedicated to pricing. You’ve got a thousand other things to do. We slot in as your revenue management function, so you get the same capability without the headcount.</p>
   </div>
 </section>
 
@@ -1227,6 +1426,56 @@
       <div class="preview-cta reveal">
         <a href="#calculator" class="btn btn-primary">See yours in 30 seconds <span class="btn-arrow">→</span></a>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ABOUT ============ -->
+<section class="bg-cream" id="about">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">About us</p>
+      <h2>We’ve done this before. At scale.</h2>
+    </div>
+
+    <div class="about-layout">
+      <div class="about-bios">
+        <div class="person reveal">
+          <div class="person-head">
+            <img class="avatar" src="images/NMN.jpg" alt="Nathan Noerr" />
+            <div>
+              <div class="person-name">Nathan Noerr</div>
+              <div class="person-role">Pricing &amp; Revenue Strategy</div>
+            </div>
+          </div>
+          <p>Nathan spent 10 years running pricing for the big chains (Premier Inn, National Express) and got frustrated watching independent hotels leave money on the table because nobody would give them the same tools. At National Express, he moved them from manual pricing to machine-learning-driven dynamic pricing and unlocked £7m in extra profit. At Premier Inn, he ran pricing and strategy across their 800+ hotels. Now he does the same thing for your hotel, minus the corporate overhead.</p>
+          <p>Previously at Strategy&amp; (PwC), with consulting work for M&amp;S, Bain Capital, SHL, and others.</p>
+        </div>
+
+        <div class="person reveal">
+          <div class="person-head">
+            <img class="avatar" src="images/AJR.jpg" alt="Alex Robinson" />
+            <div>
+              <div class="person-name">Alex Robinson</div>
+              <div class="person-role">Commercial &amp; Technology</div>
+            </div>
+          </div>
+          <p>Alex has been CFO of a tech company with tens of millions of users, a strategy consultant at BCG, and an investment banker at Citi. At Gett, he ran UK finance and operations and led the business to profitability. He builds the tools and data infrastructure behind Otterly Booked, and makes sure the numbers actually add up.</p>
+          <p>He got involved because he saw an industry drowning in overpriced software that nobody uses, and thought: what if we just did the work instead?</p>
+        </div>
+      </div>
+
+      <aside class="about-panel reveal">
+        <h3>We know boutique hotels are different.</h3>
+        <p>You don’t have a revenue management team. You probably don’t have time to learn new software. And you’ve had enough of salespeople promising the world and disappearing after the contract is signed.</p>
+        <p class="panel-sub">Here’s what we actually offer:</p>
+        <ul>
+          <li><strong>Real people, not just a platform.</strong> You’ll work with Nathan and Alex directly. Not a chatbot. Not a junior account manager.</li>
+          <li><strong>No software to learn.</strong> We do the analysis, send you the recommendations, and implement the changes if you want us to.</li>
+          <li><strong>No lock-in.</strong> Monthly engagement. If we’re not earning you more than we cost, you leave. Simple.</li>
+          <li><strong>A performance guarantee.</strong> If we don’t deliver measurable uplift, you don’t pay.</li>
+        </ul>
+      </aside>
     </div>
   </div>
 </section>
