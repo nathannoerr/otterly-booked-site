@@ -402,25 +402,35 @@
   .comp-row .you .fill { background: var(--navy); }
   .comp-row .price { font-variant-numeric: tabular-nums; color: var(--ink); font-weight: 500; text-align: right; }
 
-  /* ---------- problem ---------- */
+  /* ---------- problem (compact) ---------- */
+  .problem-section {
+    padding: clamp(44px, 5vw, 64px) 0;
+  }
+  .problem-head {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .problem-head .eyebrow {
+    justify-content: center;
+    margin-bottom: 10px;
+  }
   .problem-intro {
     font-family: var(--serif);
     font-style: italic;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color: var(--muted);
-    text-align: center;
-    margin: 0 0 40px;
+    margin: 0;
   }
   .problem-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
+    gap: 16px;
   }
   .problem-card {
     background: var(--white);
     border: 1px solid var(--line);
     border-radius: 12px;
-    padding: 24px 22px;
+    padding: 20px 20px;
     transition: transform .2s ease, box-shadow .2s ease;
   }
   .problem-card:hover {
@@ -429,14 +439,14 @@
   }
   .problem-card h3 {
     font-family: var(--serif);
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     line-height: 1.25;
-    margin: 0 0 10px;
+    margin: 0 0 8px;
     color: var(--navy);
   }
   .problem-card p {
     color: #4a525e;
-    font-size: .94rem;
+    font-size: .9rem;
     line-height: 1.5;
     margin: 0;
   }
@@ -494,26 +504,39 @@
     flex-direction: column;
     gap: 22px;
     flex: 1;
+    counter-reset: splitnum;
   }
   .split-list li {
     font-size: .95rem;
     line-height: 1.55;
     color: #3a424f;
-    padding-left: 22px;
+    padding-left: 44px;
     position: relative;
+    counter-increment: splitnum;
+    min-height: 32px;
   }
   .split-paid .split-list li { color: #c0c7d2; }
-  .split-list li::before {
-    content: "";
+  .split-list-numbered li::before {
+    content: counter(splitnum);
     position: absolute;
     left: 0;
-    top: 9px;
-    width: 10px;
-    height: 2px;
-    background: var(--teal);
-    border-radius: 2px;
+    top: 0;
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--teal-tint);
+    color: var(--teal-deep);
+    font-family: var(--serif);
+    font-size: 1rem;
+    font-weight: 500;
   }
-  .split-paid .split-list li::before { background: #6dd0c2; }
+  .split-paid .split-list-numbered li::before {
+    background: rgba(109,208,194,0.18);
+    color: #6dd0c2;
+  }
   .split-list li strong {
     display: block;
     color: var(--navy);
@@ -534,78 +557,68 @@
   .orgchart-section h2 { color: #fdfdfb; }
   .orgchart-section .eyebrow { color: #6dd0c2; }
   .orgchart-section .eyebrow::before { background: #6dd0c2; }
-  .orgchart-wrap {
+  .orgchart-stage {
     display: grid;
-    grid-template-columns: minmax(0, 1.25fr) 80px minmax(0, 1fr);
-    gap: 20px;
+    grid-template-columns: minmax(0, 1.7fr) minmax(100px, 0.35fr) minmax(0, 1fr);
+    gap: 16px;
     align-items: center;
     margin-top: 40px;
   }
-  .orgchart {
-    padding: 22px 20px 24px;
+  .orgchart-col {
+    padding: 18px 16px 22px;
     border-radius: 14px;
     background: rgba(255,255,255,.02);
     border: 1px solid rgba(255,255,255,.08);
   }
-  .orgchart-label {
+  .orgchart-caption-label {
     font-size: .7rem;
     letter-spacing: .18em;
     text-transform: uppercase;
     color: #8db8b1;
     text-align: center;
-    margin: 0 0 16px;
+    margin: 0 0 12px;
   }
-  .org-row {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 8px;
+  .orgchart-svg {
+    width: 100%;
+    height: auto;
+    display: block;
   }
-  .org-row:last-child { margin-bottom: 0; }
-  .org-row-4 {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 4px;
-  }
-  .org-row-2 {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 6px;
-  }
-  .org-row-small .org-box { font-size: .64rem; padding: 4px 5px; }
-  .org-box {
-    background: transparent;
-    border: 1px solid rgba(255,255,255,.22);
-    border-radius: 5px;
-    padding: 7px 10px;
-    font-size: .78rem;
-    color: #e9edf3;
-    text-align: center;
-    font-weight: 500;
-    line-height: 1.2;
-    min-width: 0;
-  }
-  .org-row:not(.org-row-4):not(.org-row-2) .org-box { min-width: 140px; }
-  .org-accent {
-    background: var(--teal);
-    border-color: var(--teal);
-    color: #fff;
-  }
-  .org-accent-wide { min-width: 220px !important; padding: 10px 16px; }
-  .org-logo {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-family: var(--serif);
-    font-size: 1rem;
-    padding: 8px 14px;
-    min-width: 200px;
-    justify-content: center;
-  }
-  .org-logo img { width: 24px; height: 24px; object-fit: contain; flex-shrink: 0; }
+  .orgchart-col-big .orgchart-svg  { max-height: 400px; }
+  .orgchart-col-small .orgchart-svg { max-height: 340px; }
   .orgchart-bridge {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 8px;
+  }
+  .orgchart-bridge svg {
+    width: 80px;
+    height: auto;
+  }
+  .bridge-word {
+    font-size: .72rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #6dd0c2;
+    text-align: center;
+  }
+  /* Pulse highlight on teal blocks to draw the eye */
+  .orgchart-svg .box-highlight {
+    filter: drop-shadow(0 0 0 rgba(42,157,143,0));
+    animation: rmglow 3.2s ease-in-out infinite;
+  }
+  @keyframes rmglow {
+    0%, 100% { filter: drop-shadow(0 0 0 rgba(42,157,143,0)); }
+    50%      { filter: drop-shadow(0 0 14px rgba(42,157,143,0.55)); }
+  }
+  /* Draw-in arrow when section becomes visible */
+  .orgchart-stage.in .bridge-line {
+    animation: drawarrow 1.6s ease .4s forwards;
+  }
+  @keyframes drawarrow {
+    from { stroke-dashoffset: 140; }
+    to   { stroke-dashoffset: 0; }
   }
   .orgchart-caption {
     margin: 44px auto 0;
@@ -1026,8 +1039,9 @@
     .split { grid-template-columns: 1fr; gap: 20px; }
     .about-layout { grid-template-columns: 1fr; gap: 40px; }
     .about-panel { position: static; }
-    .orgchart-wrap { grid-template-columns: 1fr; gap: 18px; }
-    .orgchart-bridge { transform: rotate(90deg); margin: 4px auto; }
+    .orgchart-stage { grid-template-columns: 1fr; gap: 14px; }
+    .orgchart-bridge { flex-direction: row; margin: 4px auto; }
+    .orgchart-bridge svg { transform: rotate(90deg); width: 60px; }
     .calc-wrap { grid-template-columns: 1fr; }
     .calc-inputs, .calc-output { padding: 32px 28px; }
     .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; background: #fff; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); flex-direction: column; align-items: stretch; gap: 0; padding: 8px 0; }
@@ -1046,7 +1060,6 @@
     .person-head { gap: 16px; }
     .avatar { width: 68px; height: 68px; font-size: 1.3rem; }
     .faq-q { font-size: 1.1rem; padding: 22px 32px 22px 0; }
-    .org-row-small .org-box { font-size: .58rem; padding: 3px 4px; }
   }
 </style>
 </head>
@@ -1081,7 +1094,7 @@
     <div class="hero-grid">
       <div class="reveal">
         <p class="eyebrow">Pricing intelligence for independent hotels</p>
-        <h1>Every night you don’t adjust your pricing, you lose money <span class="accent">you’ll never get back.</span></h1>
+        <h1>Your pricing is costing you money <span class="accent">every night.</span></h1>
         <p class="hero-sub">We built dynamic pricing tools for Premier Inn, National Express, and some of the UK’s biggest brands. Now we’re building them for independent hotels, so a 50-room boutique gets the same pricing intelligence as an 800-hotel chain.</p>
         <div class="hero-cta">
           <a href="#calculator" class="btn btn-primary">Build your dashboard <span class="btn-arrow">→</span></a>
@@ -1149,9 +1162,12 @@
 </header>
 
 <!-- ============ PROBLEM ============ -->
-<section class="bg-cream" id="problem">
+<section class="bg-cream problem-section" id="problem">
   <div class="container">
-    <p class="problem-intro reveal">Sound familiar?</p>
+    <div class="problem-head reveal">
+      <p class="eyebrow">The problem</p>
+      <p class="problem-intro">Sound familiar?</p>
+    </div>
     <div class="problem-grid">
       <div class="problem-card reveal">
         <h3>You set your rates in January and barely touch them again</h3>
@@ -1181,22 +1197,21 @@
     <div class="split" id="pricing">
       <article class="split-col split-free reveal">
         <p class="split-kicker">Start free</p>
-        <h3>Your Pricing Dashboard</h3>
-        <p class="split-sub">Free · No integration needed</p>
-        <ul class="split-list">
+        <h3>Build your dashboard</h3>
+        <ol class="split-list split-list-numbered">
           <li>
-            <strong>We build your dashboard.</strong>
-            A live view of how your rates compare to 3–5 competitors across the next 90 days. Updated daily. No PMS connection, no setup. We build it from publicly available data and send you the link.
+            <strong>A live view of your market.</strong>
+            See how your rates compare to our view of your closest competitors. No PMS connection, no setup. You can build it in 2 minutes, just click the button below.
           </li>
           <li>
             <strong>Weekly email alerts.</strong>
             Every week you get an email: “Your Saturday rate is £28 below your comp set,” or “Competitor X just raised prices for the bank holiday, you haven’t.” Actionable, specific, takes 30 seconds to read.
           </li>
           <li>
-            <strong>You decide what to do with it.</strong>
-            Some hotels take our alerts and adjust rates themselves. That alone can be worth thousands a year. If you want us to do more, we’re right here.
+            <strong>Take action.</strong>
+            Many hotels take our alerts and adjust rates themselves, and that can be worth thousands a year. If you want us to do more, we’re right here.
           </li>
-        </ul>
+        </ol>
         <a href="#calculator" class="btn btn-primary">Build your dashboard <span class="btn-arrow">→</span></a>
       </article>
 
@@ -1204,10 +1219,10 @@
         <p class="split-kicker">We do it for you</p>
         <h3>Your Dedicated Revenue Team</h3>
         <p class="split-sub">Pricing done, not just recommended</p>
-        <ul class="split-list">
+        <ol class="split-list split-list-numbered">
           <li>
-            <strong>We research your market and tell you exactly what to change.</strong>
-            Not generic advice: specific rate changes for specific dates, backed by competitor data, event calendars, and demand signals. Actionable from day one.
+            <strong>We tell you exactly what to charge.</strong>
+            Backed by competitor data, event calendars, and demand signals. Backed by people who’ve done this at scale. Actionable from day one.
           </li>
           <li>
             <strong>We become your revenue management function.</strong>
@@ -1215,9 +1230,9 @@
           </li>
           <li>
             <strong>Once you trust it, we automate.</strong>
-            When you’ve seen the results and you’re comfortable, we set up rules-based automation so pricing runs in the background. You stay in control. We stay watching.
+            When you’ve seen the results and you’re comfortable, the dynamic pricing will run in the background. You stay in control. We stay watching.
           </li>
-        </ul>
+        </ol>
         <a href="#contact" class="btn btn-secondary">Book a free call <span class="btn-arrow">→</span></a>
       </article>
     </div>
@@ -1229,50 +1244,125 @@
   <div class="container">
     <div class="section-head reveal">
       <p class="eyebrow">Where we fit</p>
-      <h2>The pricing team you don’t have</h2>
+      <h2>Big hotels have a pricing team. You don’t.</h2>
     </div>
 
-    <div class="orgchart-wrap reveal">
-      <!-- BIG CHAIN -->
-      <div class="orgchart orgchart-big">
-        <p class="orgchart-label">A big hotel chain</p>
-        <div class="org-row"><div class="org-box">CEO</div></div>
-        <div class="org-row org-row-4">
-          <div class="org-box">Marketing</div>
-          <div class="org-box">Finance</div>
-          <div class="org-box">Operations</div>
-          <div class="org-box">Commercial</div>
-        </div>
-        <div class="org-row"><div class="org-box org-accent org-accent-wide">Revenue Management</div></div>
-        <div class="org-row org-row-4 org-row-small">
-          <div class="org-box">Head of Revenue</div>
-          <div class="org-box">Pricing Analyst</div>
-          <div class="org-box">Distribution Mgr</div>
-          <div class="org-box">Market Intel</div>
-        </div>
-      </div>
+    <div class="orgchart-stage reveal">
+      <!-- ===== BIG CHAIN CHART (SVG) ===== -->
+      <div class="orgchart-col orgchart-col-big">
+        <p class="orgchart-caption-label">A typical FTSE-100 hotel chain</p>
+        <svg class="orgchart-svg" viewBox="0 0 520 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Big hotel chain org chart">
+          <defs>
+            <style>
+              .chart-line    { stroke: rgba(255,255,255,0.28); stroke-width: 1.3; fill: none; }
+              .chart-line-tl { stroke: #6dd0c2;            stroke-width: 1.5; fill: none; }
+              .box-fill      { fill: #2b384a; }
+              .box-stroke    { stroke: rgba(255,255,255,0.28); stroke-width: 1.2; }
+              .box-label     { fill: #fdfdfb; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; }
+              .box-sublabel  { fill: #c0c7d2; font-family: 'DM Sans', sans-serif; font-size: 10px; }
+              .box-highlight { fill: #2a9d8f; stroke: #2a9d8f; }
+              .box-highlight-text { fill: #ffffff; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; }
+            </style>
+          </defs>
 
-      <!-- BRIDGE -->
-      <div class="orgchart-bridge" aria-hidden="true">
-        <svg viewBox="0 0 60 28" width="60" height="28">
-          <path d="M4 14 L50 14 M42 6 L52 14 L42 22" stroke="#2a9d8f" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <!-- CEO -->
+          <rect class="box-fill box-stroke" x="215" y="12" width="90" height="32" rx="5"/>
+          <text class="box-label" x="260" y="33" text-anchor="middle">CEO</text>
+
+          <!-- CEO -> row 2 connectors -->
+          <path class="chart-line" d="M260 44 L260 60 M55 60 L465 60 M55 60 L55 74 M192 60 L192 74 M328 60 L328 74 M465 60 L465 74"/>
+
+          <!-- Row 2: 4 directors -->
+          <rect class="box-fill box-stroke" x="10"  y="74" width="90" height="30" rx="5"/>
+          <text class="box-label" x="55"  y="93" text-anchor="middle">CFO</text>
+          <rect class="box-fill box-stroke" x="147" y="74" width="90" height="30" rx="5"/>
+          <text class="box-label" x="192" y="93" text-anchor="middle">Marketing</text>
+          <rect class="box-fill box-stroke" x="283" y="74" width="90" height="30" rx="5"/>
+          <text class="box-label" x="328" y="93" text-anchor="middle">Operations</text>
+          <rect class="box-fill box-stroke" x="420" y="74" width="90" height="30" rx="5"/>
+          <text class="box-label" x="465" y="93" text-anchor="middle">Commercial</text>
+
+          <!-- Commercial -> Revenue Management -->
+          <path class="chart-line" d="M465 104 L465 128 L260 128 L260 144"/>
+
+          <!-- Revenue Management (HIGHLIGHTED) -->
+          <rect class="box-highlight" x="160" y="144" width="200" height="40" rx="6"/>
+          <text class="box-highlight-text" x="260" y="168" text-anchor="middle">Revenue Management</text>
+
+          <!-- RM -> team connectors (teal) -->
+          <path class="chart-line-tl" d="M260 184 L260 200 M70 200 L450 200 M70 200 L70 214 M200 200 L200 214 M322 200 L322 214 M450 200 L450 214"/>
+
+          <!-- Team row 1 -->
+          <rect class="box-fill box-stroke" x="8"   y="214" width="124" height="28" rx="4"/>
+          <text class="box-sublabel" x="70"  y="232" text-anchor="middle">Head of Revenue</text>
+          <rect class="box-fill box-stroke" x="138" y="214" width="124" height="28" rx="4"/>
+          <text class="box-sublabel" x="200" y="232" text-anchor="middle">Pricing Analyst</text>
+          <rect class="box-fill box-stroke" x="260" y="214" width="124" height="28" rx="4"/>
+          <text class="box-sublabel" x="322" y="232" text-anchor="middle">Distribution Mgr</text>
+          <rect class="box-fill box-stroke" x="388" y="214" width="124" height="28" rx="4"/>
+          <text class="box-sublabel" x="450" y="232" text-anchor="middle">Market Intel</text>
+
+          <!-- Team row 2 connectors -->
+          <path class="chart-line-tl" d="M70 242 L70 258 M200 242 L200 258 M322 242 L322 258"/>
+
+          <!-- Team row 2 -->
+          <rect class="box-fill box-stroke" x="8"   y="258" width="124" height="28" rx="4"/>
+          <text class="box-sublabel" x="70"  y="276" text-anchor="middle">Reservations Mgr</text>
+          <rect class="box-fill box-stroke" x="138" y="258" width="124" height="28" rx="4"/>
+          <text class="box-sublabel" x="200" y="276" text-anchor="middle">Revenue Ops</text>
+          <rect class="box-fill box-stroke" x="260" y="258" width="124" height="28" rx="4"/>
+          <text class="box-sublabel" x="322" y="276" text-anchor="middle">Forecasting</text>
         </svg>
       </div>
 
-      <!-- YOUR HOTEL -->
-      <div class="orgchart orgchart-small">
-        <p class="orgchart-label">Your hotel</p>
-        <div class="org-row"><div class="org-box">Owner</div></div>
-        <div class="org-row org-row-2">
-          <div class="org-box">Front desk</div>
-          <div class="org-box">Housekeeping</div>
-        </div>
-        <div class="org-row">
-          <div class="org-box org-accent org-logo">
-            <img src="images/Logo.png" alt="" />
-            <span>Otterly Booked</span>
-          </div>
-        </div>
+      <!-- ===== BRIDGE ===== -->
+      <div class="orgchart-bridge" aria-hidden="true">
+        <svg viewBox="0 0 80 140" xmlns="http://www.w3.org/2000/svg">
+          <path class="bridge-line" d="M8 70 L60 70" stroke="#2a9d8f" stroke-width="2" fill="none" stroke-linecap="round" stroke-dasharray="140" stroke-dashoffset="140"/>
+          <path d="M50 62 L66 70 L50 78" stroke="#2a9d8f" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="bridge-head"/>
+        </svg>
+        <span class="bridge-word">slots in as</span>
+      </div>
+
+      <!-- ===== YOUR HOTEL CHART (SVG) ===== -->
+      <div class="orgchart-col orgchart-col-small">
+        <p class="orgchart-caption-label">Your hotel</p>
+        <svg class="orgchart-svg" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Your hotel org chart">
+          <defs>
+            <style>
+              .chart-line    { stroke: rgba(255,255,255,0.28); stroke-width: 1.3; fill: none; }
+              .chart-line-tl { stroke: #6dd0c2;            stroke-width: 1.5; fill: none; stroke-dasharray: 4 3; }
+              .box-fill      { fill: #2b384a; }
+              .box-stroke    { stroke: rgba(255,255,255,0.28); stroke-width: 1.2; }
+              .box-label     { fill: #fdfdfb; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; }
+              .box-highlight { fill: #2a9d8f; stroke: #2a9d8f; }
+              .box-highlight-text { fill: #ffffff; font-family: 'DM Serif Display', serif; font-size: 15px; }
+              .box-highlight-sub  { fill: rgba(255,255,255,0.75); font-family: 'DM Sans', sans-serif; font-size: 10px; }
+            </style>
+          </defs>
+
+          <!-- Owner -->
+          <rect class="box-fill box-stroke" x="105" y="12" width="90" height="32" rx="5"/>
+          <text class="box-label" x="150" y="33" text-anchor="middle">Owner</text>
+
+          <!-- Owner -> staff connectors -->
+          <path class="chart-line" d="M150 44 L150 60 M60 60 L240 60 M60 60 L60 74 M240 60 L240 74"/>
+
+          <!-- Staff row -->
+          <rect class="box-fill box-stroke" x="10"  y="74" width="100" height="30" rx="5"/>
+          <text class="box-label" x="60"  y="93" text-anchor="middle">Front desk</text>
+          <rect class="box-fill box-stroke" x="190" y="74" width="100" height="30" rx="5"/>
+          <text class="box-label" x="240" y="93" text-anchor="middle">Housekeeping</text>
+
+          <!-- Gap / connector down to Otterly slot -->
+          <path class="chart-line-tl" d="M150 104 L150 180"/>
+
+          <!-- Otterly Booked slot (teal, prominent) -->
+          <rect class="box-highlight" x="20" y="180" width="260" height="66" rx="10"/>
+          <image href="images/Logo.png" x="34" y="195" width="36" height="36" preserveAspectRatio="xMidYMid meet"/>
+          <text class="box-highlight-text" x="160" y="215" text-anchor="middle">Otterly Booked</text>
+          <text class="box-highlight-sub"  x="160" y="232" text-anchor="middle">your revenue team</text>
+        </svg>
       </div>
     </div>
 
