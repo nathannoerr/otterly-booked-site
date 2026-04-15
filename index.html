@@ -1111,14 +1111,16 @@
           <select id="approach">
             <!--
               Uplift values express the % revenue gain moving from each tier to Dynamic.
-              Pricing hierarchy (multiplicative chain vs. a static/flat baseline):
-                Seasonal     = +5% vs static
-                Week/weekend = +5% vs seasonal
-                Algorithmic  = +4% vs week/weekend
-                Dynamic      = +8% vs algorithmic
+              Pricing hierarchy (multiplicative chain):
+                Static       = baseline (1.00x)
+                Seasonal     = +5% vs static        (1.0500x)
+                Week/weekend = +5% vs seasonal      (1.1025x)
+                Algorithmic  = +4% vs week/weekend  (1.1466x)
+                Dynamic      = +8% vs algorithmic   (1.238328x)
               Uplift to Dynamic = (Dynamic_mult / Current_mult) - 1.
             -->
-            <option value="0.17936" selected>Monthly / seasonal tiers</option>
+            <option value="0.23833" selected>Flat rate year-round</option>
+            <option value="0.17936">Monthly / seasonal tiers</option>
             <option value="0.12320">Week / weekend split</option>
             <option value="0.08000">Algorithmic / RMS tool</option>
             <option value="0">Fully dynamic pricing</option>
